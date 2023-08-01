@@ -2,9 +2,9 @@
   "name": "hey_fp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild",
+    "build": "tsup src/index.ts --format cjs, esm --dts",
     "dev": "node -r esbuild-register src/index.ts",
     "test": "vitest --run"
   },
