@@ -1,0 +1,22 @@
+{
+  "name": "hey_fp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild",
+    "dev": "node -r esbuild-register src/index.ts",
+    "test": "vitest --run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "esbuild": "^0.18.17",
+    "esbuild-register": "^3.4.2",
+    "vitest": "^0.34.1"
+  }
+}
