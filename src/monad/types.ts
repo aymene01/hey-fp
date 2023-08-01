@@ -11,3 +11,5 @@ export type Right<T> = {
   chain: <U>(f: (x: T) => Right<U>) => Right<U>
   inspect: string
 }
+
+export type Either<R, L> = Right<R> | Left<L>

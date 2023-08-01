@@ -1,4 +1,4 @@
-import { Left, Right } from '../monad'
+import { Left, Right } from '../Monad'
 import { describe, it, expect } from 'vitest'
 
 describe('Left', () => {

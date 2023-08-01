@@ -1,4 +1,4 @@
-import { IdFunctor } from '../functor'
+import { IdFunctor } from '../Functor'
 import { describe, it, expect } from 'vitest'
 
 describe('IdFunctor', () => {

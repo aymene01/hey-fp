@@ -1,4 +1,4 @@
-import * as SG from '../semigroup'
+import * as SG from '../Semigroup'
 import { describe, expect, it } from 'vitest'
 
 describe('Product', () => {

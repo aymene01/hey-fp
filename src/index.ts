@@ -1,2 +1,2 @@
-export * from './functor'
-export * from './monad'
+export * from './Functor'
+export * from './Monad'
