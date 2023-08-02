@@ -14,4 +14,6 @@ const Right = <T>(value: T): Right<T> => ({
   inspect: `Right(${value})`,
 })
 
-export { Left, Right }
+const fromNullable = <T, U extends T>(value: T): Right<T> | Left<U> => (value ? Right(value) : Left(value as U))
+
+export { Left, Right, fromNullable }
