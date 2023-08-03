@@ -18,7 +18,9 @@ const right = <T>(value: T): Right<T> => ({
   value: value,
 })
 
-const fromNullable = <T, U extends T>(value: T): Right<T> | Left<U> => (value ? right(value) : left(value as U))
+const isLeft = <E, A>(x: Either<E, A>): boolean => x._tag === 'left'
+
+const fromNullable = <T, U extends T>(value: T): Either<T, U> => (value ? right(value) : left(value as U))
 
 const some = <A>(x: A): Option<A> => ({ _tag: 'Some', value: x })
 
