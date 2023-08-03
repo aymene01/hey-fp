@@ -1,4 +1,4 @@
-import { Left, Right } from './types'
+import { Left, Right, Either, Option } from './types'
 
 const Left = <T>(value: T): Left<T> => ({
   map: <U>(f: (x: T) => U) => Left(value),
@@ -16,4 +16,23 @@ const Right = <T>(value: T): Right<T> => ({
 
 const fromNullable = <T, U extends T>(value: T): Right<T> | Left<U> => (value ? Right(value) : Left(value as U))
 
-export { Left, Right, fromNullable }
+const None: Option<never> = {
+  map: () => None,
+  flatMap: () => None,
+  getOrElse: defaultValue => defaultValue as never,
+}
+
+const Some = <T>(value: T): Option<T> => ({
+  map: fn => Some(fn(value)),
+  flatMap: fn => fn(value),
+  getOrElse: () => value,
+})
+
+const divide = (x: number, y: number): Option<number> => (y !== 0 ? Some(x / y) : None)
+
+const result = Some(10)
+  .flatMap(num => divide(num, 2))
+  .map(result => result + 5)
+  .getOrElse(0)
+
+export { Left, Right, fromNullable, Some, None }

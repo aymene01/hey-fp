@@ -13,3 +13,9 @@ export type Right<T> = {
 }
 
 export type Either<R, L> = Right<R> | Left<L>
+
+export type Option<T> = {
+  map<U>(fn: (value: T) => U): Option<U>
+  flatMap<U>(fn: (value: T) => Option<U>): Option<U>
+  getOrElse(defaultValue: any): any
+}
