@@ -1,4 +1,6 @@
 export type Left<T> = {
+  _tag: 'left'
+  value: T
   map: <U>(f: (x: T) => U) => Left<T>
   fold: <U>(f: (x: T) => U, g: (x: T) => U) => U
   chain: <U>(f: (x: T) => U) => Left<T>
@@ -6,16 +8,23 @@ export type Left<T> = {
 }
 
 export type Right<T> = {
+  _tag: 'rigth'
+  value: T
   map: <U>(f: (x: T) => U) => Right<U>
   fold: <U>(f: (x: T) => U, g: (x: T) => U) => U
   chain: <U>(f: (x: T) => Right<U>) => Right<U>
   inspect: string
 }
 
-export type Either<R, L> = Right<R> | Left<L>
+export type Either<E, A> = Right<E> | Left<A>
 
-export type Option<T> = {
-  map<U>(fn: (value: T) => U): Option<U>
-  flatMap<U>(fn: (value: T) => Option<U>): Option<U>
-  getOrElse(defaultValue: any): any
+export type Some<A> = {
+  _tag: 'Some'
+  value: A
 }
+
+export type None = {
+  _tag: 'None'
+}
+
+export type Option<T> = Some<T> | None

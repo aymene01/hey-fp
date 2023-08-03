@@ -1,38 +1,29 @@
 import { Left, Right, Either, Option } from './types'
 
-const Left = <T>(value: T): Left<T> => ({
-  map: <U>(f: (x: T) => U) => Left(value),
+const left = <T>(value: T): Left<T> => ({
+  map: <U>(f: (x: T) => U) => left(value),
   fold: <U>(f: (x: T) => U, g: (x: T) => U) => f(value),
-  chain: <U>(f: (x: T) => U) => Left(value),
+  chain: <U>(f: (x: T) => U) => left(value),
   inspect: `Left(${value})`,
+  _tag: 'left',
+  value: value,
 })
 
-const Right = <T>(value: T): Right<T> => ({
-  map: <U>(f: (x: T) => U) => Right(f(value)),
+const right = <T>(value: T): Right<T> => ({
+  map: <U>(f: (x: T) => U) => right(f(value)),
   fold: <U>(f: (x: T) => U, g: (x: T) => U) => g(value),
   chain: <U>(f: (x: T) => U) => f(value),
   inspect: `Right(${value})`,
+  _tag: 'rigth',
+  value: value,
 })
 
-const fromNullable = <T, U extends T>(value: T): Right<T> | Left<U> => (value ? Right(value) : Left(value as U))
+const fromNullable = <T, U extends T>(value: T): Right<T> | Left<U> => (value ? right(value) : left(value as U))
 
-const None: Option<never> = {
-  map: () => None,
-  flatMap: () => None,
-  getOrElse: defaultValue => defaultValue as never,
-}
+const some = <A>(x: A): Option<A> => ({ _tag: 'Some', value: x })
 
-const Some = <T>(value: T): Option<T> => ({
-  map: fn => Some(fn(value)),
-  flatMap: fn => fn(value),
-  getOrElse: () => value,
-})
+const none: Option<never> = { _tag: 'None' }
 
-const divide = (x: number, y: number): Option<number> => (y !== 0 ? Some(x / y) : None)
+const isNone = <A>(x: Option<A>): boolean => x._tag === 'None'
 
-const result = Some(10)
-  .flatMap(num => divide(num, 2))
-  .map(result => result + 5)
-  .getOrElse(0)
-
-export { Left, Right, fromNullable, Some, None }
+export { left, right, fromNullable, some, none, isNone }
