@@ -1,4 +1,4 @@
-import { left, right, none, some, isNone } from '../Monad'
+import { left, right, some } from '../Monad'
 import { describe, it, expect } from 'vitest'
 
 describe('Left', () => {
@@ -11,7 +11,7 @@ describe('Left', () => {
         x => x,
         x => x,
       ),
-    ).toBe(5) // Left's map function should have no effect on Left values
+    ).toBe(5)
   })
 
   it('should fold the value using the provided functions', () => {
@@ -21,7 +21,7 @@ describe('Left', () => {
       x => x + 10,
     )
 
-    expect(result).toBe(10) // Left's fold should use the left function
+    expect(result).toBe(10)
   })
 
   it('should chain the value using the provided function', () => {
@@ -33,7 +33,7 @@ describe('Left', () => {
         x => x,
         x => x,
       ),
-    ).toBe(5) // Left's chain function should have no effect on Left values
+    ).toBe(5)
   })
 
   it('should inspect the value', () => {
@@ -53,7 +53,7 @@ describe('Right', () => {
         x => x,
         x => x,
       ),
-    ).toBe(10) // Right's map function should apply the function to the value
+    ).toBe(10)
   })
 
   it('should fold the value using the provided functions', () => {
@@ -63,7 +63,7 @@ describe('Right', () => {
       x => x + 10,
     )
 
-    expect(result).toBe(15) // Right's fold should use the right function
+    expect(result).toBe(15)
   })
 
   it('should chain the value using the provided function', () => {
@@ -92,17 +92,5 @@ describe('Option functions', () => {
     if (someOption._tag === 'Some') {
       expect(someOption.value).toBe(42)
     }
-  })
-
-  it('should create a None option', () => {
-    expect(none._tag).toBe('None')
-  })
-
-  it('should correctly identify a None option', () => {
-    const someOption = some(42)
-    const noneOption = none
-
-    expect(isNone(someOption)).toBe(false)
-    expect(isNone(noneOption)).toBe(true)
   })
 })

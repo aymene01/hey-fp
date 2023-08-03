@@ -18,12 +18,18 @@ export type Right<T> = {
 
 export type Either<E, A> = Right<E> | Left<A>
 
-export type Some<A> = {
+export type Some<T> = {
+  map: <U>(fn: (value: T) => U) => Option<U>
+  flatMap: <U>(fn: (value: T) => Option<U>) => Option<U>
+  getOrElse: () => T
   _tag: 'Some'
-  value: A
+  value: T
 }
 
 export type None = {
+  map: () => None
+  flatMap: () => None
+  getOrElse: <T>(defaultValue: T) => T
   _tag: 'None'
 }
 
